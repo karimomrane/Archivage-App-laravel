@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateFacturesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('factures', function (Blueprint $table) {
+            $table->id();
+            $table->string('path');
+            $table->timestamps();
+            $table->unsignedBigInteger('code_fournisseur')->nullable();
+            $table->foreign('code_fournisseur')->references('id')->on('fournisseur')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('factures');
+    }
+}
